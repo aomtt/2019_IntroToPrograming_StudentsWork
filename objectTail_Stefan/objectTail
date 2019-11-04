@@ -1,0 +1,29 @@
+Object myFlower;  //names the initial objects
+
+float flower_r=50;      //flower size (radius)      
+int flowerPetals=6;      //number of petals on the flower  
+int flowerColor=#FFFFFF;  //color of the flower petals
+int num = 40;
+int[] x = new int[num];
+int[] y = new int[num];
+float size = 1;
+
+
+void setup() {
+  
+size(1024,768);
+frameRate(60);
+  
+  myFlower    = new Object(flower_r,flowerPetals, flowerColor);  //creates the flower object
+}
+void draw() {
+  background(#FF00FF);
+  for (int i = num-1; i > 0; i--) {
+    x[i] = x[i-1];
+    y[i] = y[i-1];
+  }
+  // Add the new values to the beginning of the array
+  x[0] = mouseX;
+  y[0] = mouseY;
+  for (int i = 0; i < num; i++) myFlower.displayFlower(x[i], y[i], i/size); //displays the flower class
+}
