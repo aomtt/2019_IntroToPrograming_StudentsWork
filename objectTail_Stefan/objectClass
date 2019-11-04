@@ -1,0 +1,28 @@
+class Object {            //this is a class
+  float r;                      //declares all the class variables used for creating them
+  int nPetals;
+  int petalColor;
+  int squareColor;
+
+  float speed;
+  float ballX;
+  float ballY;
+
+  //flower object 
+  Object(float temp_r, int temp_nPetals,int temp_petalColor) {
+    
+    r=temp_r;
+    nPetals=temp_nPetals;
+    petalColor=temp_petalColor;
+  } 
+  void displayFlower (float x, float y, float r) {      //new x and y float values to determine the correct placement
+    fill(petalColor);
+      for (float i=0; i<PI*2; i+=2*PI/nPetals) {
+      ballX=r*cos(i); 
+      ballY=r*sin(i);
+      ellipse(x+ballX, y+ballY, r, r);                  //add the x and y values to the ball values
+    }
+    fill(255,255,0);
+    ellipse(x,y,r*1.2,r*1.2);
+  }
+}
