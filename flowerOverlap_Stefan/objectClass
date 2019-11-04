@@ -1,0 +1,65 @@
+class Object {            //this is a class
+  float r;                      //declares all the class variables used for creating them
+  int nPetals;
+  int petalColor;
+  int squareColor;
+  float yPos;
+  float xPos;
+  float speed;
+  float ballX;
+  float ballY;
+  
+  //square object 
+  Object(float temp_r, float temp_yPos, float temp_xPos, float temp_speed, int temp_squareColor){
+    r=temp_r;
+    yPos=temp_yPos;
+    xPos=temp_xPos;
+    speed=temp_speed;
+    squareColor=temp_squareColor;
+  }
+  //flower object
+  Object(float temp_r, int temp_nPetals, float temp_xPos, float temp_yPos, int temp_petalColor, float temp_speed) {
+    
+    r=temp_r;
+    nPetals=temp_nPetals;
+    xPos=temp_xPos;
+    yPos=temp_yPos;
+    petalColor=temp_petalColor;
+    speed=temp_speed; 
+  }
+  void displayFlower () {      //method for displaying the flower using the colors, number of petals, x/y location and size
+    fill(petalColor);
+      for (float i=0; i<PI*2; i+=2*PI/nPetals) {
+      ballX=xPos + r*cos(i);
+      ballY=yPos + r*sin(i);
+      ellipse(ballX, ballY, r, r);
+    }
+    fill(255,255,0);
+    ellipse(xPos,yPos,r*1.2,r*1.2);
+  }
+  void displaySquare () {      //method for displaying the square. same as flower but much more simple
+    fill(squareColor);
+    square(xPos-r/2,yPos-r/2,r);
+  }
+  void move() {                //method for moving the object
+    xPos=xPos + speed;
+  }
+  void flip() {                //method for flipping the direction of the object
+    speed = speed * (-1);
+  }
+  void bounce() {              //method for bouncing the object off the walls
+    if (xPos > width-r || xPos < r || yPos > height || yPos < 0) {
+      speed = speed * (-1);
+    }
+  }
+  boolean overlap(Object customObject) {      //checks if the objects are overlapping using a boolean
+    if(dist(xPos,yPos, customObject.xPos,customObject.yPos)<(r+customObject.r))
+    {
+     return true; 
+    }
+    else
+    {
+     return false; 
+    }
+  }
+}
