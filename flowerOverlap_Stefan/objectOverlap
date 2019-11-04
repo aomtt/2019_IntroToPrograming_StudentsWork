@@ -1,0 +1,46 @@
+Object myFlower;  //names the initial objects
+Object mySquare;
+                          //variables used for the program
+float flower_r=100;      //flower size (radius)
+float square_r=100;      //square size (height/width)
+float flower_x;          //flower x and y coordinate positions
+float flower_y;
+float square_x;          //square x and y coordinate positions
+float square_y;
+int flowerPetals=6;      //number of petals on the flower  
+int flowerColor=#FFFFFF;  //color of the flower petals
+int squareColor=#FF0000;  //color of the square
+float flowerSpeed=4;      //speed of the flower
+float squareSpeed=4;      //speed of the square
+
+
+
+void setup() {
+  
+size(1024,768);
+float flower_x=width/3;        //start positions of the flower and square
+float flower_y=height/3;
+float square_x=(width/3*2);
+float square_y=(height/3);
+  
+  myFlower    = new Object(flower_r,flowerPetals,flower_x,flower_y, flowerColor, flowerSpeed);  //creates the flower object
+  mySquare    = new Object(square_r, square_y,square_x,squareSpeed,squareColor);                //creates the square object
+  
+}
+
+void draw() {
+  background(#00FFFF);
+  if (myFlower.overlap(mySquare)) {              //checks the overlap and changes the background color
+   background (#009999); 
+  }
+  myFlower.displayFlower();                //methods for displaying, moving and bouncing the flower and square
+  myFlower.move();
+  myFlower.bounce();
+  mySquare.displaySquare();
+  mySquare.move();
+  mySquare.bounce();
+}
+
+void mouseClicked() {
+  mySquare.flip();                      //changes the direction of the moving square on mouse click
+}
