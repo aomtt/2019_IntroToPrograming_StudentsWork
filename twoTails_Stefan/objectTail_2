@@ -1,0 +1,49 @@
+int num = 20;        //initial num value
+int[] x = new int[num];  //x and y values for the mouse tail 
+int[] y = new int[num];
+int[] x2 = new int[num];  //x and y values for the moving tail 
+int[] y2 = new int[num];
+int indexPosition = 0;  //value used to determine the position in the index
+float flower_r=50;      //flower size (radius)      
+int flowerPetals=6;      //number of petals on the flower  
+int flowerColor=#FFFFFF;  //color of the flower petals
+Object myFlower;      //mouse flower object
+Object myFlower2;     //moving flower object
+float size = 1;    //the size value used to determine the expanding size of the flower
+int flower2X = 0;      //x coordinate of the starting position of the moving flower
+int flower2Y = 200;    //y coordinate of the starting position of the moving flower
+int moveSpeed = 10;    //the move speed of the moving flower
+
+void setup() {          //setup
+  size(1024, 768);    //window size
+  noStroke();        //doesnt draw outlines on the shapes
+  myFlower    = new Object(flower_r, flowerPetals, flowerColor);    //mouse flower 
+  myFlower2    = new Object(flower_r, flowerPetals, flowerColor);   //moving flower
+}
+
+void draw() {        //draw (updates every frame)
+  background(#FFAAFF);      //background color
+  
+  //pass by reference
+  x[indexPosition] = mouseX;  //sets the x and y values of the index position to the mouse coordinates  
+  y[indexPosition] = mouseY;  
+
+  indexPosition = (indexPosition + 1) % num; // Cycle between 0 and the number of elements
+  for (int i = 0; i < num; i++) {
+    int pos = (indexPosition + i) % num;     // Set the array position to read
+    float radius = (num-i) / 2.0;        //sets the radius value so it scales
+    myFlower.displayFlower(x[pos], y[pos], radius);    //displays the flower
+  } 
+  //pass by value
+  for (int i = num-1; i > 0; i--) { //shifts the x and y values one to the left
+    x2[i] = x2[i-1];
+    y2[i] = y2[i-1];
+  }
+  x2[0] = flower2X;        //sets the x and y values of the moving flower
+  y2[0] = flower2Y;
+  for (int i = 0; i < num; i++) myFlower2.displayFlower(x2[i], y2[i], i/size); //displays the flower class 
+  flower2X = flower2X+moveSpeed;      //moves the flower
+  if (flower2X > width || flower2X < 0) {    //bounces the flower when it hits either left or right edge
+    moveSpeed = moveSpeed*-1;
+  }
+}
